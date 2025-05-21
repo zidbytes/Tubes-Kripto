@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import embed
 import extract
+from metrics import evaluate_video_quality, print_evaluation_report
 
 class StegoApp:
     def __init__(self, root):
@@ -44,12 +45,29 @@ class StegoApp:
 
     def run_embed(self):
         try:
-            embed.embed_watermark(
+            # Make sure embed.embed_watermark() returns 4 values
+            original_path, output_path, cipher_path, meta_path = embed.embed_watermark(
                 self.video_path.get(),
                 self.watermark_path.get(),
                 self.output_dir.get()
             )
-            messagebox.showinfo("Success", "✅ Watermark berhasil disisipkan.")
+            
+            # Calculate metrics
+            metrics = evaluate_video_quality(original_path, output_path)
+            
+            # Show in terminal
+            print_evaluation_report(metrics)
+            
+            # Show in GUI popup
+            report = "\n".join([
+                "✅ Watermark berhasil disisipkan.",
+                f"PSNR: {metrics['psnr']:.2f} dB",
+                f"SSIM: {metrics['ssim']:.4f}",
+                f"MSE: {metrics['mse']:.4f}",
+                f"MAE: {metrics['mae']:.4f}",
+                f"Max Diff: {metrics['max_diff']:.4f}"
+            ])
+            messagebox.showinfo("Success", report)
         except Exception as e:
             messagebox.showerror("Error", str(e))
 

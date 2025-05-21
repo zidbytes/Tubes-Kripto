@@ -8,6 +8,7 @@ from Crypto.Util.Padding import pad
 from Crypto.Random import get_random_bytes
 import numpy as np
 
+
 def encrypt_image_aes(image: np.ndarray, key: bytes):
     cipher = AES.new(key, AES.MODE_CBC)
     iv = cipher.iv
@@ -74,4 +75,4 @@ def embed_watermark(video_path, watermark_path, output_dir, alpha=0.05):
 
     np.savez(meta_path, key=key, iv=iv, shape=wm.shape, original_frame=original_frame, hash_vector=hash_vector)
 
-    return output_path, cipher_path, meta_path
+    return video_path, output_path, cipher_path, meta_path
