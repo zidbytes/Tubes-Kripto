@@ -1,5 +1,6 @@
-opencv-python
-pycryptodome
+PyQt6
 numpy
+opencv-python
+pywavelets
 scipy
-PyWavelets
+rsa
