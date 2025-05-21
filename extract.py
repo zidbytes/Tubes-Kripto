@@ -69,9 +69,14 @@ def extract_and_decrypt(output_dir):
     extracted_hash = extract_svd(gray, original_frame, alpha=0.05, length=len(hash_expected))
     cap.release()
 
+<<<<<<< HEAD
     print("✅ Hash berhasil diekstraksi dari frame pertama.")
     match = np.array_equal(extracted_hash, hash_expected)
     print("🧬 Hash cocok:", match)
+=======
+    print("✅ Hash berhasil diekstraksi.")
+    # print("🧬 Hash cocok:", np.array_equal(extracted_hash, hash_expected))
+>>>>>>> ada300257b605d8d21064201f52147ffad1c9b07
 
     with open(cipher_path, 'rb') as f:
         cipher = np.frombuffer(f.read(), dtype=np.uint8)

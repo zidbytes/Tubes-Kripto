@@ -67,8 +67,7 @@ class StegoApp:
             duration = end - start
 
             msg = "✅ Berhasil ekstrak & dekripsi watermark."
-            # if not match:
-            # msg += f"\n🕒 Waktu eksekusi: {duration:.2f} detik"
+
             messagebox.showinfo("Extraction Done", msg + f"\nFile: {recovered_path}")
         except Exception as e:
             messagebox.showerror("Error", str(e))
