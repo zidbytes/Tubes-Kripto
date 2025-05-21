@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import embed
 import extract
+import time
+
 
 class StegoApp:
     def __init__(self, root):
@@ -44,21 +46,29 @@ class StegoApp:
 
     def run_embed(self):
         try:
+            start = time.time()
             embed.embed_watermark(
                 self.video_path.get(),
                 self.watermark_path.get(),
                 self.output_dir.get()
             )
-            messagebox.showinfo("Success", "✅ Watermark berhasil disisipkan.")
+            end = time.time()
+            duration = end - start
+
+            messagebox.showinfo("Success", f"✅ Watermark berhasil disisipkan.\n🕒 Waktu eksekusi: {duration:.2f} detik")
         except Exception as e:
             messagebox.showerror("Error", str(e))
 
     def run_extract(self):
         try:
+            start = time.time()
             recovered_path, match = extract.extract_and_decrypt(self.output_dir.get())
+            end = time.time()
+            duration = end - start
+
             msg = "✅ Berhasil ekstrak & dekripsi watermark."
-            if not match:
-                msg += "\n⚠️ Hash watermark tidak cocok."
+            # if not match:
+            # msg += f"\n🕒 Waktu eksekusi: {duration:.2f} detik"
             messagebox.showinfo("Extraction Done", msg + f"\nFile: {recovered_path}")
         except Exception as e:
             messagebox.showerror("Error", str(e))
