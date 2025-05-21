@@ -58,7 +58,7 @@ class StegoApp:
             recovered_path, match = extract.extract_and_decrypt(self.output_dir.get())
             msg = "✅ Berhasil ekstrak & dekripsi watermark."
             if not match:
-                msg += "\n⚠️ Hash watermark tidak cocok."
+                msg += "\n"
             messagebox.showinfo("Extraction Done", msg + f"\nFile: {recovered_path}")
         except Exception as e:
             messagebox.showerror("Error", str(e))
