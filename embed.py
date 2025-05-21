@@ -41,7 +41,7 @@ def embed_watermark(video_path, watermark_path, output_dir, alpha=0.05):
 
     wm = cv2.imread(watermark_path, cv2.IMREAD_GRAYSCALE)
     if wm is None:
-        raise ValueError(f"❌ Gagal membaca watermark: {watermark_path}")
+        raise ValueError(f"Gagal membaca watermark: {watermark_path}")
     
     key = get_random_bytes(16)
     iv, cipher = encrypt_image_aes(wm, key)
